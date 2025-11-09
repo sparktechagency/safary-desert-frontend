@@ -44,7 +44,7 @@ export interface SetBookingPayload {
   children: number;
   currency: string;
   tour_options: SelectedTourOption[];
-
+transfer_option:string;
   // totals
   pricing: Pricing;
     // NEW: personal info (keep optional so you can set later)
@@ -70,6 +70,7 @@ const initialState: BookingState = {
   date: "",
   adults: 1,
   children: 0,
+  transfer_option:"",
   currency: "AED",
   tour_options: [],
 pricing: { 

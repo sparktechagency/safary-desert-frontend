@@ -1,0 +1,1750 @@
+{
+	"info": {
+		"_postman_id": "2d441c23-0525-4fc3-ab6b-9e0ed09cdff6",
+		"name": "smith-williums",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "40535239",
+		"_collection_link": "https://universal-moon-919285.postman.co/workspace/dev_rayhan~d8b6e6ea-7b2b-485a-a0a0-384c4ba148d2/collection/40535239-2d441c23-0525-4fc3-ab6b-9e0ed09cdff6?action=share&source=collection_link&creator=40535239"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "register",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \r\n    \"name\": \"Rayhan\",\r\n    \"email\": \"rayhanshorker108@gmail.com\",\r\n    \"password\": \"Admin@123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/auth/register",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "\r\n{\r\n    \"email\":\"rayhanshorker108@gmail.com\",\r\n     \"password\":\"Admin@123\"  \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/auth/login",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "forgot-pass",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"rayhanshorker108@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/auth/forgotPass",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"auth",
+								"forgotPass"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "verify-otp",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"rayhanshorker108@gmail.com\",\r\n    \"otp\":\"123413\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/auth/verifyOtp",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"auth",
+								"verifyOtp"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "reset-pass",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\":\"rayhanshorker108@gmail.com\",\r\n \r\n    \"newPassword\":\"admin123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/auth/resetPass",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"auth",
+								"resetPass"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "change-pass",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{userAuthToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"oldPassword\":\"abc123\",\r\n    \"newPassword\":\"admin123\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/auth/changePassword",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"auth",
+								"changePassword"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "package",
+			"item": [
+				{
+					"name": "create-package",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{userAuthToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "coverImage",
+									"type": "file",
+									"src": "/C:/STA/smith-williums-web/src/assests/beatch-ride.jpg"
+								},
+								{
+									"key": "image",
+									"type": "file",
+									"src": [
+										"/C:/STA/smith-williums-web/src/assests/camping.png",
+										"/C:/STA/smith-williums-web/src/assests/car.jpg",
+										"/C:/STA/smith-williums-web/src/assests/bus.png"
+									]
+								},
+								{
+									"key": "data",
+									"value": "{\n  \"title\": \"Evening Desert Safari – Premium\",\n  \"location\": \"Dubai Desert Conservation Reserve\",\n  \"duration\": \"6 hours\",\n  \"max_adult\": 8,\n  \"child_min_age\": 4,\n  \"pickup\": \"11:00 AM\",\n  \"availability\": {\n    \"start\": \"2025-09-03\",\n    \"end\": \"2026-09-03\"\n  },\n  \"activity\": [\"Dune Bashing\",\"Camel Ride\",\"Quad Biking\",\"Dune Buggy Ride\"],\n  \"adultPrice\": { \"amount\": 350, \"currency\": \"AED\" },\n  \"childPrice\": { \"amount\": 250, \"currency\": \"AED\" },\n  \"single_sitter_dune_buggy\": { \"amount\": 600, \"currency\": \"AED\" },\n  \"dune_buggy_ride\": { \"amount\": 600, \"currency\": \"AED\" },\n  \"four_sitter_dune_buggy\": { \"amount\": 900, \"currency\": \"AED\" },\n  \"quad_bike\": { \"amount\": 300, \"currency\": \"AED\" },\n  \"camel_bike\": { \"amount\": 120, \"currency\": \"AED\" },\n  \"tea_cofee_soft_drinks\": { \"amount\": 600, \"currency\": \"AED\" },\n  \"hena_tattos\": { \"amount\": 600, \"currency\": \"AED\" },\n  \"fire_show\": { \"amount\": 600, \"currency\": \"AED\" },\n  \"arabic_costume\": { \"amount\": 600, \"currency\": \"AED\" },\n  \"shisha_smoking\": { \"amount\": 600, \"currency\": \"AED\" },\n  \"falcon_picture\": { \"amount\": 600, \"currency\": \"AED\" },\n \"sand_boarding\": { \"amount\": 600, \"currency\": \"AED\" },\n  \"belly_dance\": { \"amount\": 600, \"currency\": \"AED\" },\n  \"drop_off\": \"11:00 PM\",\n  \"note\": \"Carry valid ID or passport; not recommended for guests with back problems.\",\n  \"refund_policy\": \"Full refund if cancelled at least 24 hours before start time.\",\n  \"included\": [\n    \"Air-conditioned 4x4 pickup & drop-off\",\n    \"Professional guide\",\n    \"BBQ dinner with soft drinks\",\n    \"Sandboarding equipment\"\n  ],\n  \"excluded\": [\n    \"Personal expenses\",\n    \"Alcoholic beverages\",\n    \"Tips\"\n  ],\n\"discount\":10,\n  \"tour_plan\": [\n    \"15:00–15:30 Pickup from hotel\",\n    \"16:30 Dune bashing & photo stop\",\n    \"17:30 Sandboarding and camel ride\",\n    \"19:00 BBQ dinner and live shows\",\n    \"21:30 Drop-off to hotel\"\n  ],\n  \"description\": \"Premium evening desert safari with dune bashing, sandboarding, camel ride, live entertainment, and BBQ dinner. Optional add-ons include quad bike and dune buggy experiences.\"\n}\n",
+									"description": "{\n  \"title\": \"Evening Desert Safari – Premium\",\n  \"location\": \"Dubai Desert Conservation Reserve\",\n  \"duration\": \"6 hours\",\n  \"max_adult\": 8,\n  \"child_min_age\": 4,\n  \"pickup\": \"3:30\",\n  \"availability\": {\n    \"start\": \"2025-09-03\",\n    \"end\": \"2026-09-03\"\n  },\n  \"activity\": [\"Dune Bashing\",\"Camel Ride\",\"Quad Biking\"],\n  \"adultPrice\": { \"amount\": 350, \"currency\": \"AED\" },\n  \"childPrice\": { \"amount\": 250, \"currency\": \"AED\" },\n  \"single_sitter_dune_buggy\": { \"amount\": 600, \"currency\": \"AED\" },\n  \"four_sitter_dune_buggy\": { \"amount\": 900, \"currency\": \"AED\" },\n  \"quad_bike\": { \"amount\": 300, \"currency\": \"AED\" },\n  \"camel_bike\": { \"amount\": 120, \"currency\": \"AED\" },\n  \"discount\": 10,\n  \"drop_off\": \"10:00\",\n  \"note\": \"Carry valid ID or passport; not recommended for guests with back problems.\",\n  \"refund_policy\": \"Full refund if cancelled at least 24 hours before start time.\",\n  \"included\": [\n    \"Air-conditioned 4x4 pickup & drop-off\",\n    \"Professional guide\",\n    \"BBQ dinner with soft drinks\",\n    \"Sandboarding equipment\"\n  ],\n  \"excluded\": [\n    \"Personal expenses\",\n    \"Alcoholic beverages\",\n    \"Tips\"\n  ],\n  \"tour_plan\": [\n    \"15:00–15:30 Pickup from hotel\",\n    \"16:30 Dune bashing & photo stop\",\n    \"17:30 Sandboarding and camel ride\",\n    \"19:00 BBQ dinner and live shows\",\n    \"21:30 Drop-off to hotel\"\n  ],\n  \"description\": \"Premium evening desert safari with dune bashing, sandboarding, camel ride, live entertainment, and BBQ dinner. Optional add-ons include quad bike and dune buggy experiences.\"\n}\n",
+									"type": "text"
+								},
+								{
+									"key": "",
+									"value": "",
+									"description": "activity enum-->\n DUNE_BASHING,\n  CAMEL_RIDE,\n  QUAD_BIKING,\n  DUNE_BUGGY_RIDE,\n  SINGLE_SITTER_DUNE_BUGGY_RIDE,\n  FOUR_SITTER_DUNE_BUGGY_RIDE ,\n  TEA_COFFEE_SOFT_DRINKS,\n  HENNA_TATTOOS,\n  FIRE_SHOW\",\n  ARABIC_COSTUMES,\n  SHISHA_SMOKING,\n  FALCON_PICTURES,\n  SAND_BOARDING ,\n  BELLY_DANCE_SHOW,",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SERVER}}/package/create-package",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"package",
+								"create-package"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-all-package",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{userAuthToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/Rayhan/Pictures/Screenshots/kuratedAI.png"
+								},
+								{
+									"key": "data",
+									"value": "{\n  \"Title\": \"Evening Desert Safari – Premium\",\n  \"location\": \"Dubai Desert Conservation Reserve\",\n  \"duration\": \"6 hours\",\n  \"max_adult\": 8,\n  \"child_min_age\": 4,\n  \"pickup\": \"3:30\",\n  \"availability\": [\"Daily\"],\n  \"activity\": [\"Dune bashing\", \"Sandboarding\", \"Camel ride\", \"Live BBQ dinner\"],\n  \"adultPrice\": { \"amount\": 350, \"currency\": \"AED\" },\n  \"childPrice\": { \"amount\": 250, \"currency\": \"AED\" },\n  \"single_sitter_dune_buggy\": { \"amount\": 600, \"currency\": \"AED\" },\n  \"four_sitter_dune_buggy\": { \"amount\": 900, \"currency\": \"AED\" },\n  \"quad_bike\": { \"amount\": 300, \"currency\": \"AED\" },\n  \"camel_bike\": { \"amount\": 120, \"currency\": \"AED\" },\n  \"discount\": 10,\n  \"drop_off\": \"10:00\",\n  \"note\": \"Carry valid ID or passport; not recommended for guests with back problems.\",\n  \"refund_policy\": \"Full refund if cancelled at least 24 hours before start time.\",\n  \"included\": [\n    \"Air-conditioned 4x4 pickup & drop-off\",\n    \"Professional guide\",\n    \"BBQ dinner with soft drinks\",\n    \"Sandboarding equipment\"\n  ],\n  \"excluded\": [\n    \"Personal expenses\",\n    \"Alcoholic beverages\",\n    \"Tips\"\n  ],\n  \"tour_plan\": [\n    \"15:00–15:30 Pickup from hotel\",\n    \"16:30 Dune bashing & photo stop\",\n    \"17:30 Sandboarding and camel ride\",\n    \"19:00 BBQ dinner and live shows\",\n    \"21:30 Drop-off to hotel\"\n  ],\n  \"description\": \"Premium evening desert safari with dune bashing, sandboarding, camel ride, live entertainment, and BBQ dinner. Optional add-ons include quad bike and dune buggy experiences.\"\n}\n",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SERVER}}/package/allPackage",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"package",
+								"allPackage"
+							],
+							"query": [
+								{
+									"key": "activity",
+									"value": "cycle ride",
+									"disabled": true
+								},
+								{
+									"key": "availability",
+									"value": "2025-09-04",
+									"disabled": true
+								},
+								{
+									"key": "child_min_age",
+									"value": "4",
+									"disabled": true
+								},
+								{
+									"key": "max_adult",
+									"value": "2",
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "single-package",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{userAuthToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/Rayhan/Pictures/Screenshots/kuratedAI.png"
+								},
+								{
+									"key": "data",
+									"value": "{\n  \"Title\": \"Evening Desert Safari – Premium\",\n  \"location\": \"Dubai Desert Conservation Reserve\",\n  \"duration\": \"6 hours\",\n  \"max_adult\": 8,\n  \"child_min_age\": 4,\n  \"pickup\": \"3:30\",\n  \"availability\": [\"Daily\"],\n  \"activity\": [\"Dune bashing\", \"Sandboarding\", \"Camel ride\", \"Live BBQ dinner\"],\n  \"adultPrice\": { \"amount\": 350, \"currency\": \"AED\" },\n  \"childPrice\": { \"amount\": 250, \"currency\": \"AED\" },\n  \"single_sitter_dune_buggy\": { \"amount\": 600, \"currency\": \"AED\" },\n  \"four_sitter_dune_buggy\": { \"amount\": 900, \"currency\": \"AED\" },\n  \"quad_bike\": { \"amount\": 300, \"currency\": \"AED\" },\n  \"camel_bike\": { \"amount\": 120, \"currency\": \"AED\" },\n  \"discount\": 10,\n  \"drop_off\": \"10:00\",\n  \"note\": \"Carry valid ID or passport; not recommended for guests with back problems.\",\n  \"refund_policy\": \"Full refund if cancelled at least 24 hours before start time.\",\n  \"included\": [\n    \"Air-conditioned 4x4 pickup & drop-off\",\n    \"Professional guide\",\n    \"BBQ dinner with soft drinks\",\n    \"Sandboarding equipment\"\n  ],\n  \"excluded\": [\n    \"Personal expenses\",\n    \"Alcoholic beverages\",\n    \"Tips\"\n  ],\n  \"tour_plan\": [\n    \"15:00–15:30 Pickup from hotel\",\n    \"16:30 Dune bashing & photo stop\",\n    \"17:30 Sandboarding and camel ride\",\n    \"19:00 BBQ dinner and live shows\",\n    \"21:30 Drop-off to hotel\"\n  ],\n  \"description\": \"Premium evening desert safari with dune bashing, sandboarding, camel ride, live entertainment, and BBQ dinner. Optional add-ons include quad bike and dune buggy experiences.\"\n}\n",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SERVER}}/package/single-package/68e9eab8960eb613357a0ebe",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"package",
+								"single-package",
+								"68e9eab8960eb613357a0ebe"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-package",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{userAuthToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "{{SERVER}}/package/delete-package/68e7320e34a60fc1c71358e4",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"package",
+								"delete-package",
+								"68e7320e34a60fc1c71358e4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "edit-package",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{userAuthToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "images",
+									"type": "file",
+									"src": "/C:/Users/Rayhan/Pictures/Screenshots/Screenshot 2025-08-18 125412.png"
+								},
+								{
+									"key": "data",
+									"value": "{\n  \"Title\": \"Evening Desert Safari\"\n}\n",
+									"description": "{\n  \"Title\": \"Evening Desert Safari – Premium\",\n  \"location\": \"Dubai Desert Conservation Reserve\",\n  \"duration\": \"6 hours\",\n  \"max_adult\": 8,\n  \"child_min_age\": 4,\n  \"pickup\": \"3:30\",\n  \"availability\": [\"Daily\"],\n  \"activity\": [\"Dune bashing\", \"Sandboarding\", \"Camel ride\", \"Live BBQ dinner\"],\n  \"adultPrice\": { \"amount\": 350, \"currency\": \"AED\" },\n  \"childPrice\": { \"amount\": 250, \"currency\": \"AED\" },\n  \"single_sitter_dune_buggy\": { \"amount\": 600, \"currency\": \"AED\" },\n  \"four_sitter_dune_buggy\": { \"amount\": 900, \"currency\": \"AED\" },\n  \"quad_bike\": { \"amount\": 300, \"currency\": \"AED\" },\n  \"camel_bike\": { \"amount\": 120, \"currency\": \"AED\" },\n  \"discount\": 10,\n  \"drop_off\": \"10:00\",\n  \"note\": \"Carry valid ID or passport; not recommended for guests with back problems.\",\n  \"refund_policy\": \"Full refund if cancelled at least 24 hours before start time.\",\n  \"included\": [\n    \"Air-conditioned 4x4 pickup & drop-off\",\n    \"Professional guide\",\n    \"BBQ dinner with soft drinks\",\n    \"Sandboarding equipment\"\n  ],\n  \"excluded\": [\n    \"Personal expenses\",\n    \"Alcoholic beverages\",\n    \"Tips\"\n  ],\n  \"tour_plan\": [\n    \"15:00–15:30 Pickup from hotel\",\n    \"16:30 Dune bashing & photo stop\",\n    \"17:30 Sandboarding and camel ride\",\n    \"19:00 BBQ dinner and live shows\",\n    \"21:30 Drop-off to hotel\"\n  ],\n  \"description\": \"Premium evening desert safari with dune bashing, sandboarding, camel ride, live entertainment, and BBQ dinner. Optional add-ons include quad bike and dune buggy experiences.\"\n}\n",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SERVER}}/package/update-package/68e21b0dbe84f044d0e91376",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"package",
+								"update-package",
+								"68e21b0dbe84f044d0e91376"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "checkout",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"item\": {\r\n        \"packageId\": \"68e8adb3fa911f782376a49c\",\r\n        \"currency\": \"USD\",\r\n        \"customerEmail\": \"r2@r.com\",\r\n        \"price\": 120\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/package/checkout",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"package",
+								"checkout"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add-review",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{userAuthToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_name\":\"Rayhan\",\r\n    \"package_id\":\"68edf4a1a1bbdb463da02dd2\",\r\n    \"rating\":5,\r\n    \"message\":\"The desert safari was absolutely amazing! The vintage Land Rover ride was thrilling, and everything was perfectly organized. The dune bashing was exciting and gave us that adrenaline rush we were looking for. The camel ride was peaceful and gave us a different perspective of the desert. The falcon show was spectacular - watching these magnificent birds\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/package/addReview",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"package",
+								"addReview"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Event",
+			"item": [
+				{
+					"name": "create-event",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{userAuthToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/STA/smith-williums-web/src/assests/lunch.jpg"
+								},
+								{
+									"key": "data",
+									"value": "{\n  \"title\": \"Team Offsite Kickoff\",\n  \"start_time\": \"9:00AM\",\n  \"end_time\": \"11:00PM\",\n\"max_adult\": \"6\",\n  \"max_child\": \"12\",\n  \"description\": \"Day 1: strategy, workshops, and team activities\",\n\"features\":[\"Camping, Exciting Visits\", \"Competitions and Prizes\", \"Rides Included\"]\n}\n",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SERVER}}/event/create-event",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"event",
+								"create-event"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "all-events",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{userAuthToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/Rayhan/Pictures/Screenshots/kuratedAI.png"
+								},
+								{
+									"key": "data",
+									"value": "{\n  \"Title\": \"Evening Desert Safari – Premium\",\n  \"location\": \"Dubai Desert Conservation Reserve\",\n  \"duration\": \"6 hours\",\n  \"max_adult\": 8,\n  \"child_min_age\": 4,\n  \"pickup\": \"3:30\",\n  \"availability\": [\"Daily\"],\n  \"activity\": [\"Dune bashing\", \"Sandboarding\", \"Camel ride\", \"Live BBQ dinner\"],\n  \"adultPrice\": { \"amount\": 350, \"currency\": \"AED\" },\n  \"childPrice\": { \"amount\": 250, \"currency\": \"AED\" },\n  \"single_sitter_dune_buggy\": { \"amount\": 600, \"currency\": \"AED\" },\n  \"four_sitter_dune_buggy\": { \"amount\": 900, \"currency\": \"AED\" },\n  \"quad_bike\": { \"amount\": 300, \"currency\": \"AED\" },\n  \"camel_bike\": { \"amount\": 120, \"currency\": \"AED\" },\n  \"discount\": 10,\n  \"drop_off\": \"10:00\",\n  \"note\": \"Carry valid ID or passport; not recommended for guests with back problems.\",\n  \"refund_policy\": \"Full refund if cancelled at least 24 hours before start time.\",\n  \"included\": [\n    \"Air-conditioned 4x4 pickup & drop-off\",\n    \"Professional guide\",\n    \"BBQ dinner with soft drinks\",\n    \"Sandboarding equipment\"\n  ],\n  \"excluded\": [\n    \"Personal expenses\",\n    \"Alcoholic beverages\",\n    \"Tips\"\n  ],\n  \"tour_plan\": [\n    \"15:00–15:30 Pickup from hotel\",\n    \"16:30 Dune bashing & photo stop\",\n    \"17:30 Sandboarding and camel ride\",\n    \"19:00 BBQ dinner and live shows\",\n    \"21:30 Drop-off to hotel\"\n  ],\n  \"description\": \"Premium evening desert safari with dune bashing, sandboarding, camel ride, live entertainment, and BBQ dinner. Optional add-ons include quad bike and dune buggy experiences.\"\n}\n",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SERVER}}/event/allEvents?page",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"event",
+								"allEvents"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "single-event",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{userAuthToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/Rayhan/Pictures/Screenshots/kuratedAI.png"
+								},
+								{
+									"key": "data",
+									"value": "{\n  \"Title\": \"Evening Desert Safari – Premium\",\n  \"location\": \"Dubai Desert Conservation Reserve\",\n  \"duration\": \"6 hours\",\n  \"max_adult\": 8,\n  \"child_min_age\": 4,\n  \"pickup\": \"3:30\",\n  \"availability\": [\"Daily\"],\n  \"activity\": [\"Dune bashing\", \"Sandboarding\", \"Camel ride\", \"Live BBQ dinner\"],\n  \"adultPrice\": { \"amount\": 350, \"currency\": \"AED\" },\n  \"childPrice\": { \"amount\": 250, \"currency\": \"AED\" },\n  \"single_sitter_dune_buggy\": { \"amount\": 600, \"currency\": \"AED\" },\n  \"four_sitter_dune_buggy\": { \"amount\": 900, \"currency\": \"AED\" },\n  \"quad_bike\": { \"amount\": 300, \"currency\": \"AED\" },\n  \"camel_bike\": { \"amount\": 120, \"currency\": \"AED\" },\n  \"discount\": 10,\n  \"drop_off\": \"10:00\",\n  \"note\": \"Carry valid ID or passport; not recommended for guests with back problems.\",\n  \"refund_policy\": \"Full refund if cancelled at least 24 hours before start time.\",\n  \"included\": [\n    \"Air-conditioned 4x4 pickup & drop-off\",\n    \"Professional guide\",\n    \"BBQ dinner with soft drinks\",\n    \"Sandboarding equipment\"\n  ],\n  \"excluded\": [\n    \"Personal expenses\",\n    \"Alcoholic beverages\",\n    \"Tips\"\n  ],\n  \"tour_plan\": [\n    \"15:00–15:30 Pickup from hotel\",\n    \"16:30 Dune bashing & photo stop\",\n    \"17:30 Sandboarding and camel ride\",\n    \"19:00 BBQ dinner and live shows\",\n    \"21:30 Drop-off to hotel\"\n  ],\n  \"description\": \"Premium evening desert safari with dune bashing, sandboarding, camel ride, live entertainment, and BBQ dinner. Optional add-ons include quad bike and dune buggy experiences.\"\n}\n",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SERVER}}/event/single-event/68e23a8add00625be9241a37",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"event",
+								"single-event",
+								"68e23a8add00625be9241a37"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-event",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/Rayhan/Pictures/Screenshots/Screenshot 2025-08-22 163734.png"
+								},
+								{
+									"key": "data",
+									"value": "{\n  \"title\": \"Team Offsite Kickoff - premium\"\n}\n",
+									"type": "text"
+								},
+								{
+									"key": "",
+									"value": "",
+									"description": "{\n  \"title\": \"Team Offsite Kickoff\",\n  \"start_time\": \"2025-10-20\",\n  \"end_time\": \"2025-10-20\",\n  \"description\": \"Day 1: strategy, workshops, and team activities.\"\n}\n",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SERVER}}/event/update-event/68e23ab9dd00625be9241a3c",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"event",
+								"update-event",
+								"68e23ab9dd00625be9241a3c"
+							],
+							"query": [
+								{
+									"key": "image",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-event",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/Rayhan/Pictures/Screenshots/Screenshot 2025-08-22 163734.png"
+								},
+								{
+									"key": "data",
+									"value": "{\n  \"title\": \"Team Offsite Kickoff - premium\"\n}\n",
+									"type": "text"
+								},
+								{
+									"key": "",
+									"value": "",
+									"description": "{\n  \"title\": \"Team Offsite Kickoff\",\n  \"start_time\": \"2025-10-20\",\n  \"end_time\": \"2025-10-20\",\n  \"description\": \"Day 1: strategy, workshops, and team activities.\"\n}\n",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SERVER}}/event/delete-event/68e23ab9dd00625be9241a3c",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"event",
+								"delete-event",
+								"68e23ab9dd00625be9241a3c"
+							],
+							"query": [
+								{
+									"key": "image",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Blog",
+			"item": [
+				{
+					"name": "all-blogs",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SERVER}}/blog/allBlogs?page=1&title&article=",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"blog",
+								"allBlogs"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1"
+								},
+								{
+									"key": "title",
+									"value": null
+								},
+								{
+									"key": "article",
+									"value": ""
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create-blog",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{userAuthToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/Rayhan/Pictures/Screenshots/Screenshot 2025-07-21 153747.png"
+								},
+								{
+									"key": "data",
+									"value": "{\n  \"title\": \"Team Offsite Kickoff\",\n  \"article\": \"Day 1: strategy, workshops, and team activities.\"\n}\n",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SERVER}}/blog/create-blog",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"blog",
+								"create-blog"
+							],
+							"query": [
+								{
+									"key": "image",
+									"value": null,
+									"disabled": true
+								},
+								{
+									"key": "data",
+									"value": null,
+									"disabled": true
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "single-blog",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{userAuthToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/Rayhan/Pictures/Screenshots/kuratedAI.png"
+								},
+								{
+									"key": "data",
+									"value": "{\n  \"Title\": \"Evening Desert Safari – Premium\",\n  \"location\": \"Dubai Desert Conservation Reserve\",\n  \"duration\": \"6 hours\",\n  \"max_adult\": 8,\n  \"child_min_age\": 4,\n  \"pickup\": \"3:30\",\n  \"availability\": [\"Daily\"],\n  \"activity\": [\"Dune bashing\", \"Sandboarding\", \"Camel ride\", \"Live BBQ dinner\"],\n  \"adultPrice\": { \"amount\": 350, \"currency\": \"AED\" },\n  \"childPrice\": { \"amount\": 250, \"currency\": \"AED\" },\n  \"single_sitter_dune_buggy\": { \"amount\": 600, \"currency\": \"AED\" },\n  \"four_sitter_dune_buggy\": { \"amount\": 900, \"currency\": \"AED\" },\n  \"quad_bike\": { \"amount\": 300, \"currency\": \"AED\" },\n  \"camel_bike\": { \"amount\": 120, \"currency\": \"AED\" },\n  \"discount\": 10,\n  \"drop_off\": \"10:00\",\n  \"note\": \"Carry valid ID or passport; not recommended for guests with back problems.\",\n  \"refund_policy\": \"Full refund if cancelled at least 24 hours before start time.\",\n  \"included\": [\n    \"Air-conditioned 4x4 pickup & drop-off\",\n    \"Professional guide\",\n    \"BBQ dinner with soft drinks\",\n    \"Sandboarding equipment\"\n  ],\n  \"excluded\": [\n    \"Personal expenses\",\n    \"Alcoholic beverages\",\n    \"Tips\"\n  ],\n  \"tour_plan\": [\n    \"15:00–15:30 Pickup from hotel\",\n    \"16:30 Dune bashing & photo stop\",\n    \"17:30 Sandboarding and camel ride\",\n    \"19:00 BBQ dinner and live shows\",\n    \"21:30 Drop-off to hotel\"\n  ],\n  \"description\": \"Premium evening desert safari with dune bashing, sandboarding, camel ride, live entertainment, and BBQ dinner. Optional add-ons include quad bike and dune buggy experiences.\"\n}\n",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SERVER}}/blog/single-blog/68e24c35cc89b2a492f645e9",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"blog",
+								"single-blog",
+								"68e24c35cc89b2a492f645e9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-blogs",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{userAuthToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/Rayhan/Pictures/Screenshots/kuratedAI.png"
+								},
+								{
+									"key": "data",
+									"value": "{\n  \"Title\": \"Evening Desert Safari – Premium\",\n  \"location\": \"Dubai Desert Conservation Reserve\",\n  \"duration\": \"6 hours\",\n  \"max_adult\": 8,\n  \"child_min_age\": 4,\n  \"pickup\": \"3:30\",\n  \"availability\": [\"Daily\"],\n  \"activity\": [\"Dune bashing\", \"Sandboarding\", \"Camel ride\", \"Live BBQ dinner\"],\n  \"adultPrice\": { \"amount\": 350, \"currency\": \"AED\" },\n  \"childPrice\": { \"amount\": 250, \"currency\": \"AED\" },\n  \"single_sitter_dune_buggy\": { \"amount\": 600, \"currency\": \"AED\" },\n  \"four_sitter_dune_buggy\": { \"amount\": 900, \"currency\": \"AED\" },\n  \"quad_bike\": { \"amount\": 300, \"currency\": \"AED\" },\n  \"camel_bike\": { \"amount\": 120, \"currency\": \"AED\" },\n  \"discount\": 10,\n  \"drop_off\": \"10:00\",\n  \"note\": \"Carry valid ID or passport; not recommended for guests with back problems.\",\n  \"refund_policy\": \"Full refund if cancelled at least 24 hours before start time.\",\n  \"included\": [\n    \"Air-conditioned 4x4 pickup & drop-off\",\n    \"Professional guide\",\n    \"BBQ dinner with soft drinks\",\n    \"Sandboarding equipment\"\n  ],\n  \"excluded\": [\n    \"Personal expenses\",\n    \"Alcoholic beverages\",\n    \"Tips\"\n  ],\n  \"tour_plan\": [\n    \"15:00–15:30 Pickup from hotel\",\n    \"16:30 Dune bashing & photo stop\",\n    \"17:30 Sandboarding and camel ride\",\n    \"19:00 BBQ dinner and live shows\",\n    \"21:30 Drop-off to hotel\"\n  ],\n  \"description\": \"Premium evening desert safari with dune bashing, sandboarding, camel ride, live entertainment, and BBQ dinner. Optional add-ons include quad bike and dune buggy experiences.\"\n}\n",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SERVER}}/blog/delete-blog/68e24c35cc89b2a492f645e9",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"blog",
+								"delete-blog",
+								"68e24c35cc89b2a492f645e9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-blog",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{userAuthToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/Rayhan/Pictures/Screenshots/Screenshot 2025-09-12 112224.png"
+								},
+								{
+									"key": "data",
+									"value": "{\n  \"title\": \"Team Offsite Kickoff\",\n  \"article\": \"Day 1: strategy, workshops, and team activities.Day 1: strategy, workshops, and team activities..Day 1: strategy, workshops, and team activities..Day 1: strategy, workshops, and team activities..Day 1: strategy, workshops, and team activities..\"\n}\n",
+									"description": "{\n  \"title\": \"Team Offsite Kickoff\",\n  \"article\": \"Day 1: strategy, workshops, and team activities.\"\n}\n",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SERVER}}/blog/update-blog/68e24beccc89b2a492f645e3",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"blog",
+								"update-blog",
+								"68e24beccc89b2a492f645e3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "profile",
+			"item": [
+				{
+					"name": "edit-profile",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{userAuthToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/Rayhan/Pictures/Screenshots/Screenshot 2025-07-21 153747.png"
+								},
+								{
+									"key": "data",
+									"value": "{\"name\":\"MD Rayhan\"}",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SERVER}}/user/edit-profile",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"user",
+								"edit-profile"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "my-profile",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{userAuthToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/Rayhan/Pictures/Screenshots/Screenshot 2025-07-21 153747.png"
+								},
+								{
+									"key": "data",
+									"value": "{\"name\":\"MD Rayhan\"}",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SERVER}}/user/my-profile",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"user",
+								"my-profile"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "settings",
+			"item": [
+				{
+					"name": "privacy-policy-create",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{userAuthToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"privacyPolicy\": \"<p>this is updated hot privacy policy</p>\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/privacy/create-or-update",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"privacy",
+								"create-or-update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-privacy",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"privacyPolicy\": \"<p>this is updated hot privacy policy</p>\"\r\n}"
+						},
+						"url": {
+							"raw": "{{SERVER}}/privacy/retrive",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"privacy",
+								"retrive"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create-terms",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{userAuthToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"termsCondition\": \"<p>this is updated hot privacy policy</p>\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/terms/create-or-update",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"terms",
+								"create-or-update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-terms",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"privacyPolicy\": \"<p>this is updated hot privacy policy</p>\"\r\n}"
+						},
+						"url": {
+							"raw": "{{SERVER}}/terms/retrive",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"terms",
+								"retrive"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "about-us",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{userAuthToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"aboutUs\": \"<p>this is updated hot privacy policy</p>\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/about/create-or-update",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"about",
+								"create-or-update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-about-us",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"privacyPolicy\": \"<p>this is updated hot privacy policy</p>\"\r\n}"
+						},
+						"url": {
+							"raw": "{{SERVER}}/about/retrive",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"about",
+								"retrive"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create-refund-policy",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{userAuthToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"refundPolicy\": \"<p>this is updated hot privacy policy</p>\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/refund/create-or-update",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"refund",
+								"create-or-update"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-refund-policy",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"privacyPolicy\": \"<p>this is updated hot privacy policy</p>\"\r\n}"
+						},
+						"url": {
+							"raw": "{{SERVER}}/refund/retrive",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"refund",
+								"retrive"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Dashboard-stats",
+			"item": [
+				{
+					"name": "Dashboard-stats",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{userAuthToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "image",
+									"type": "file",
+									"src": "/C:/Users/Rayhan/Pictures/Screenshots/Screenshot 2025-07-21 153747.png"
+								},
+								{
+									"key": "data",
+									"value": "{\"name\":\"MD Rayhan\"}",
+									"type": "text",
+									"disabled": true
+								}
+							]
+						},
+						"url": {
+							"raw": "{{SERVER}}/user/dashboard/stats/2025",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"user",
+								"dashboard",
+								"stats",
+								"2025"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "FAQ",
+			"item": [
+				{
+					"name": "create-faq",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{userAuthToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Ques\":\"How do I book a tour with Oasis Palm Dubai?\",\r\n    \"Answere\":\"Pick-up in a 4×4 Land Cruiser, dune bashing, camel ride, sandboarding, BBQ buffet dinner, and traditional live performances (belly dance, tanoura, fire shows)\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/faq/create-faq",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"faq",
+								"create-faq"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-faq",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{userAuthToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Ques\":\"How do I book a tour with Oasis Palm Dubai?\",\r\n    \"Answere\":\"Pick-up in a 4×4 Land Cruiser, dune bashing, camel ride, sandboarding, BBQ buffet dinner, and traditional live performances (belly dance, tanoura, fire shows)\"\r\n}"
+						},
+						"url": {
+							"raw": "{{SERVER}}/faq/allFaq",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"faq",
+								"allFaq"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "single-faq",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{userAuthToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Ques\":\"How do I book a tour with Oasis Palm Dubai?\",\r\n    \"Answere\":\"Pick-up in a 4×4 Land Cruiser, dune bashing, camel ride, sandboarding, BBQ buffet dinner, and traditional live performances (belly dance, tanoura, fire shows)\"\r\n}"
+						},
+						"url": {
+							"raw": "{{SERVER}}/faq/single-faq/68e75a5d6e3b1a1ebb50e616",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"faq",
+								"single-faq",
+								"68e75a5d6e3b1a1ebb50e616"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "update-faq",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{userAuthToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Ques\":\"How do I b\",\r\n    \"Answere\":\"Pick-up in a 4×4 Land Cruiser, dune bashing, camel ride, sandboarding, BBQ buffet dinner, and traditional live performances (belly dance, tanoura, fire shows)\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/faq/update-faq/68e75a5d6e3b1a1ebb50e616",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"faq",
+								"update-faq",
+								"68e75a5d6e3b1a1ebb50e616"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "delete-faq",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{userAuthToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Ques\":\"How do I book a tour with Oasis Palm Dubai?\",\r\n    \"Answere\":\"Pick-up in a 4×4 Land Cruiser, dune bashing, camel ride, sandboarding, BBQ buffet dinner, and traditional live performances (belly dance, tanoura, fire shows)\"\r\n}"
+						},
+						"url": {
+							"raw": "{{SERVER}}/faq/delete-faq/68e75a5d6e3b1a1ebb50e616",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"faq",
+								"delete-faq",
+								"68e75a5d6e3b1a1ebb50e616"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Booking",
+			"item": [
+				{
+					"name": "create-booking",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"bookingId\": \"68e9eab8960eb613357a0ebe\",\r\n  \"title\": \"Desert Safari Adventure\",\r\n  \"images\": [\r\n    \"https://example.com/images/desert1.jpg\",\r\n    \"https://example.com/images/desert2.jpg\"\r\n  ],\r\n  \"location\": \"Dubai, UAE\",\r\n  \"availability\": {\r\n    \"start\": \"2025-11-01T08:00:00Z\",\r\n    \"end\": \"2025-11-01T18:00:00Z\"\r\n  },\r\n  \"drop_off\": \"Dubai Mall\",\r\n  \"pickup\": \"Hotel Downtown\",\r\n  \"date\": \"2025-12-01\",\r\n  \"adults\": 2,\r\n  \"children\": 1,\r\n  \"currency\": \"AED\",\r\n  \"payment_status\":\"paid\",\r\n  \"tour_options\": [\r\n    {\r\n      \"id\": \"opt001\",\r\n      \"name\": \"Quad Bike Ride\",\r\n      \"amount\": 150,\r\n      \"currency\": \"AED\",\r\n      \"quantity\": 2,\r\n      \"selected\": true\r\n    },\r\n    {\r\n      \"id\": \"opt002\",\r\n      \"name\": \"Camel Ride\",\r\n      \"amount\": 100,\r\n      \"currency\": \"AED\",\r\n      \"quantity\": 1,\r\n      \"selected\": true\r\n    }\r\n  ],\r\n  \"pricing\": {\r\n    \"tour_price\": 500,\r\n    \"additional_price\": 250,\r\n    \"grand_total\": 750\r\n  },\r\n  \"customer_name\": \"John Doe\",\r\n  \"customer_email\": \"john.doe@example.com\",\r\n  \"customer_phone\": \"+971501234567\",\r\n  \"customer_country\": \"United States\",\r\n  \"pickup_location\": \"Rove Downtown Hotel\",\r\n  \"stripe_sessionId\":\"\"\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/booking/create-booking",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"booking",
+								"create-booking"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get-all-booking",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SERVER}}/booking/allBooking?date=2025-12-01",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"booking",
+								"allBooking"
+							],
+							"query": [
+								{
+									"key": "date",
+									"value": "2025-12-01"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "single-booking",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{SERVER}}/booking/single-booking/6731f4a9a8e77e10f5b3c9d3",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"booking",
+								"single-booking",
+								"6731f4a9a8e77e10f5b3c9d3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Contact",
+			"item": [
+				{
+					"name": "contact-us",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{userAuthToken}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\":\"Rayhan\",\r\n    \"email\":\"raihanshorker56@gmail.com\",\r\n    \"message\":\"The desert safari was absolutely amazing! The vintage Land Rover ride was thrilling, and everything was perfectly organized. The dune bashing was exciting and gave us that adrenaline rush we were looking for. The camel ride was peaceful and gave us a different perspective of the desert. The falcon show was spectacular - watching these magnificent birds\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{SERVER}}/contact/send-message",
+							"host": [
+								"{{SERVER}}"
+							],
+							"path": [
+								"contact",
+								"send-message"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"requests": {},
+				"exec": [
+					"// Save token after login\r",
+					"const response = pm.response.json();\r",
+					" \r",
+					"// Access nested data object\r",
+					"const token = response.data?.accessToken;\r",
+					"const role = response.data?.role;\r",
+					"console.log(token)\r",
+					"if (token) {\r",
+					"    if (role === \"contractor\"  || role === \"admin\") {\r",
+					"        pm.collectionVariables.set(\"adminAuthToken\", token);\r",
+					"        console.log(\"Admin token saved.\");\r",
+					"    } else {\r",
+					"        pm.collectionVariables.set(\"userAuthToken\", token);\r",
+					"        console.log(\"User token saved.\");\r",
+					"    }\r",
+					"} else {\r",
+					"    console.warn(\"❌ Access token not found in response.\");\r",
+					"}"
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "SERVER",
+			"value": ""
+		},
+		{
+			"key": "userAuthToken",
+			"value": ""
+		},
+		{
+			"key": "SERVER",
+			"value": "",
+			"disabled": true
+		},
+		{
+			"key": "SERVER",
+			"value": "",
+			"disabled": true
+		},
+		{
+			"key": "SERVER",
+			"value": ""
+		}
+	]
+}

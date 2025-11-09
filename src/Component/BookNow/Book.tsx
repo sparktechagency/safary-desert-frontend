@@ -54,6 +54,7 @@ type FormValues = {
   basePrice: number;
   currency: string;
   tour_options: FormTourOption[];
+  transfer_option: string;
 };
 
 // ---------- Helpers ----------
@@ -78,24 +79,26 @@ export default function Book({ data }: BookProps) {
   const currency = data?.currency ?? "AED";
   const tourOptionsData = data?.tour_options ?? [];
 
-  const { control, handleSubmit, watch, setValue, getValues } = useForm<FormValues>({
-    mode: "onChange",
-    defaultValues: {
-      date: "2025-07-04",
-      adults: 1,
-      children: 0,
-      basePrice,
-      currency,
-      tour_options: tourOptionsData.map((t, idx) => ({
-        id: String(t.id ?? idx),
-        name: t.name,
-        amount: Number(t.amount ?? 0),
-        currency: t.currency ?? currency,
-        selected: false,
-        quantity: Math.max(1, Number(t.quantity ?? 1)),
-      })),
-    },
-  });
+  const { control, handleSubmit, watch, setValue, getValues } =
+    useForm<FormValues>({
+      mode: "onChange",
+      defaultValues: {
+        date: "2025-07-04",
+        adults: 1,
+        children: 0,
+        basePrice,
+        currency,
+        tour_options: tourOptionsData.map((t, idx) => ({
+          id: String(t.id ?? idx),
+          name: t.name,
+          amount: Number(t.amount ?? 0),
+          currency: t.currency ?? currency,
+          selected: false,
+          quantity: Math.max(1, Number(t.quantity ?? 1)),
+        })),
+         transfer_option: "sharing",
+      },
+    });
 
   const { fields, update } = useFieldArray({ control, name: "tour_options" });
 
@@ -150,7 +153,10 @@ export default function Book({ data }: BookProps) {
   // Counters
   const incDecCounter = (field: "adults" | "children", delta: number) => {
     const curr = getValues(field);
-    const next = field === "adults" ? Math.max(1, curr + delta) : Math.max(0, curr + delta);
+    const next =
+      field === "adults"
+        ? Math.max(1, curr + delta)
+        : Math.max(0, curr + delta);
     setValue(field, next, { shouldValidate: true, shouldDirty: true });
   };
 
@@ -179,6 +185,7 @@ export default function Book({ data }: BookProps) {
 
   // ---------- Submit ----------
   const onSubmit = (values: FormValues) => {
+    console.log("value",values);
     const selectedOnly = values.tour_options
       .filter((o) => o.selected)
       .map(({ id, name, currency, quantity }) => ({
@@ -223,7 +230,7 @@ export default function Book({ data }: BookProps) {
         children: values.children,
         currency: values.currency,
         tour_options: selectedOnly,
-
+transfer_option:values.transfer_option,
         pricing: {
           tour_price,
           additional_price,
@@ -251,10 +258,13 @@ export default function Book({ data }: BookProps) {
           Book VIP Desert Safari Dubai
         </h1>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-3 items-end">
           {/* Date */}
           <div>
-            <label htmlFor="booking-date" className="block text-sm text-gray-600 mb-1">
+            <label
+              htmlFor="booking-date"
+              className="block text-sm text-gray-600 mb-1"
+            >
               Select Your Date
             </label>
             <div className="relative">
@@ -286,10 +296,38 @@ export default function Book({ data }: BookProps) {
               </button>
             </div>
           </div>
+          {/* Transfer Option */}
+          <div>
+            <label
+              htmlFor="transfer-option"
+              className="block text-sm text-gray-600 mb-1"
+            >
+              Transfer Option
+            </label>
+            <Controller
+              control={control}
+              name="transfer_option"
+              defaultValue=""
+              rules={{ required: "Please select a transfer option" }}
+              render={({ field }) => (
+                <select
+                  id="transfer-option"
+                  {...field}
+                  className="w-full p-2 border border-gray-300 rounded text-sm bg-pink-50 focus:ring-1 focus:ring-orange-500"
+                >
+                  <option value="">Select Option</option>
+                  <option value="sharing">Sharing Transfers</option>
+                  <option value="private">Private Transfers</option>
+                </select>
+              )}
+            />
+          </div>
 
           {/* Adults */}
           <div>
-            <label className="block text-sm text-gray-600 mb-1">No of Adults</label>
+            <label className="block text-sm text-gray-600 mb-1">
+              No of Adults
+            </label>
             <div className="flex items-center border border-gray-300 rounded">
               <button
                 type="button"
@@ -311,9 +349,11 @@ export default function Book({ data }: BookProps) {
 
           {/* Children */}
           <div>
-            <label className="block text-sm text-gray-600 mb-1">No of Child (1–11 yrs)</label>
+            <label className="block text-sm text-gray-600 mb-1">
+              No of Child (1–11 yrs)
+            </label>
             <div className="flex items-center border border-gray-300 rounded">
-              <button 
+              <button
                 type="button"
                 onClick={() => incDecCounter("children", -1)}
                 className="p-2 hover:bg-gray-100"
@@ -333,7 +373,9 @@ export default function Book({ data }: BookProps) {
           {/* Base Price */}
           <div className="ml-5">
             <p className="block text-sm text-gray-600 mb-1">Base Price</p>
-          <p className="text-xl font-bold text-orange-500 ">AED {data?.discount_price?.amount}</p>
+            <p className="text-xl font-bold text-orange-500 ">
+              AED {data?.discount_price?.amount}
+            </p>
           </div>
         </div>
       </div>
@@ -421,69 +463,75 @@ export default function Book({ data }: BookProps) {
             );
           })}
         </div> */}
-<div className="space-y-3 mt-3">
-  {fields.map((field, idx) => {
-    const opt = watchedOptions[idx];
-    const qty = Math.max(1, Number(opt?.quantity ?? 1));
-    const perLineTotal = qty * (opt?.amount ?? 0);
+        <div className="space-y-3 mt-3">
+          {fields.map((field, idx) => {
+            const opt = watchedOptions[idx];
+            const qty = Math.max(1, Number(opt?.quantity ?? 1));
+            const perLineTotal = qty * (opt?.amount ?? 0);
 
-    const displayName = opt?.name ? opt.name.replace(/_/g, " ") : "";
+            const displayName = opt?.name ? opt.name.replace(/_/g, " ") : "";
 
-    return (
-      <div
-        key={field.id}
-        className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center py-2 border-b border-gray-100"
-      >
-        <div className="flex items-center">
-          <input
-            type="checkbox"
-            checked={!!opt?.selected}
-            onChange={() => toggleOption(idx)}
-            className="mr-2"
-          />
-          <div>
-            <div className="font-medium">{displayName}</div>
-            <div className="text-orange-500 text-xs">Package Details</div>
-         
-          </div>
+            return (
+              <div
+                key={field.id}
+                className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center py-2 border-b border-gray-100"
+              >
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    checked={!!opt?.selected}
+                    onChange={() => toggleOption(idx)}
+                    className="mr-2"
+                  />
+                  <div>
+                    <div className="font-medium">{displayName}</div>
+                    <div className="text-orange-500 text-xs">
+                      Package Details
+                    </div>
+                  </div>
+                </div>
+
+                <div className="text-center">
+                  <div className="flex items-center justify-center border border-gray-300 rounded w-28 mx-auto">
+                    <button
+                      type="button"
+                      onClick={() => changeQty(idx, -1)}
+                      className="p-1 hover:bg-gray-100"
+                    >
+                      <FaMinus className="text-xs" />
+                    </button>
+                    <span className="px-2 py-1 text-sm min-w-6 text-center">
+                      {qty}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => changeQty(idx, +1)}
+                      className="p-1 hover:bg-gray-100"
+                    >
+                      <FaPlus className="text-xs" />
+                    </button>
+                  </div>
+                  <div className="text-xs text-gray-500 mt-3">
+                    Price per {displayName}:{" "}
+                    {formatPrice(
+                      opt?.amount ?? 0,
+                      opt?.currency ?? formCurrency
+                    )}
+                  </div>
+                </div>
+
+                <div className="text-right font-semibold">
+                  {formatPrice(perLineTotal, opt?.currency ?? formCurrency)}
+                  {!opt?.selected && (
+                    <span className="block text-xs font-normal text-gray-500">
+                      not included in totals
+                    </span>
+                  )}
+                </div>
+              </div>
+            );
+          })}
         </div>
-
-        <div className="text-center">
-          <div className="flex items-center justify-center border border-gray-300 rounded w-28 mx-auto">
-            <button
-              type="button"
-              onClick={() => changeQty(idx, -1)}
-              className="p-1 hover:bg-gray-100"
-            >
-              <FaMinus className="text-xs" />
-            </button>
-            <span className="px-2 py-1 text-sm min-w-6 text-center">{qty}</span>
-            <button
-              type="button"
-              onClick={() => changeQty(idx, +1)}
-              className="p-1 hover:bg-gray-100"
-            >
-              <FaPlus className="text-xs" />
-            </button>
-          </div>
-             <div className="text-xs text-gray-500 mt-3">
-              Price per {displayName}:{" "}
-              {formatPrice(opt?.amount ?? 0, opt?.currency ?? formCurrency)}
-            </div>
-        </div>
-
-        <div className="text-right font-semibold">
-          {formatPrice(perLineTotal, opt?.currency ?? formCurrency)}
-          {!opt?.selected && (
-            <span className="block text-xs font-normal text-gray-500">
-              not included in totals
-            </span>
-          )}
-        </div>
-      </div>
-    );
-  })}
-</div>
 
         {/* Totals */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6 py-4 bg-gray-50 rounded">

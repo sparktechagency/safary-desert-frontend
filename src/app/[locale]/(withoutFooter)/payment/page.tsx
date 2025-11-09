@@ -99,6 +99,9 @@ const router = useRouter()
           <strong>Pickup Location:</strong> {readonlyData.pickup_location}
         </p>
         <p>
+          <strong>Transfer option:</strong> {readonlyData.transfer_option}
+        </p>
+        <p>
           <strong>Currency:</strong> {readonlyData.currency}
         </p>
         {/* <p>
