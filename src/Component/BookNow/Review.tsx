@@ -73,7 +73,7 @@ export default function Review({ review, packageId }: { review?: ReviewItem[]; p
         </>
       )}
 
-      {/* Centered modal */}
+      {/* Centered modal. */}
 <Modal
   centered
   open={open}
