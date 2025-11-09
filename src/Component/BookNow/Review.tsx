@@ -30,8 +30,7 @@ export default function Review({ review, packageId }: { review?: ReviewItem[]; p
 
   const formatDate = (d?: string) =>
     d ? new Date(d).toLocaleDateString(undefined, { year: 'numeric', month: 'short', day: 'numeric' }) : '';
- const screens = useBreakpoint();
-  const isMobile = !screens.md;
+
   return (
     <div className="max-w-7xl px-5 mx-auto">
       {/* Top row: title + ALWAYS show 'View all' button */}
@@ -73,7 +72,7 @@ export default function Review({ review, packageId }: { review?: ReviewItem[]; p
         </>
       )}
 
-      {/* Centered modal. */}
+      {/* Centered modal.. */}
 <Modal
   centered
   open={open}
