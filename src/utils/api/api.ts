@@ -106,6 +106,27 @@ export const getAllEvents = async () => {
     return { meta: {}, result: [] }; // Return empty meta and result in case of error
   }
 };
+export const getAllOptions = async () => {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/transferOption/allOptions`, {
+      next: { revalidate: 3600 },
+    });
+
+    if (!res.ok) {
+      throw new Error('Failed to fetch events');
+    }
+
+    const data = await res.json();
+    // Return both the meta and result data
+    return {
+      meta: data?.data?.meta || {},
+      result: data?.data?.result || [],
+    };
+  } catch (error) {
+    console.error("Error fetching events:", error);
+    return { meta: {}, result: [] }; // Return empty meta and result in case of error
+  }
+};
 
 export const getAllFaq = async () => {
   try {
