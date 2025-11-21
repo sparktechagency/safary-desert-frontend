@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -29,14 +28,14 @@ type ExperiencesSectionProps = {
 export default function ExperiencesSection({ packages }: ExperiencesSectionProps) {
   const t = useTranslations("buttons");
   const title = useTranslations("home");
-const router = useRouter()
+  const router = useRouter();
 
-const handleNavigate=(id:string)=>{
-  router.push(`/bookNow/${id}`)
-}
+  const handleNavigate = (id: string) => {
+    router.push(`/bookNow/${id}`);
+  };
+
   return (
     <>
-      {/* SEO Head Tag (only 1, dynamic generation for all is not optimal) */}
       <Head>
         <title>{title("experiencesTitle")} - Wanderlust Adventures</title>
         <meta
@@ -48,12 +47,11 @@ const handleNavigate=(id:string)=>{
 
       <section className="py-16 px-4 md:px-6 lg:px-8 font-nunito overflow-hidden w-full mb-5">
         <div className="max-w-7xl mx-auto">
-          {/* Section Title */}
+          {/* Title */}
           <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center text-gray-900 mb-16">
             {title("experiencesTitle")}
           </h2>
 
-          {/* Swiper Slider */}
           <div className="relative">
             <Swiper
               modules={[Navigation, Pagination, Autoplay]}
@@ -80,33 +78,37 @@ const handleNavigate=(id:string)=>{
             >
               {packages?.result.map((experience) => (
                 <SwiperSlide key={experience._id}>
-                  <div className="rounded-2xl h-[350px] shadow-md flex flex-col overflow-hidden bg-white transition-transform hover:scale-[1.01] duration-300 hover:cursor-pointer" onClick={()=>handleNavigate(experience?._id)}>
-                    {/* Image */}
-                    <div className="relative h-[350px] w-full">
+                  <div
+                    className="rounded-2xl shadow-md flex flex-col overflow-hidden bg-white h-[430px]  transition-transform duration-300 hover:scale-[1.02] cursor-pointer"
+                    onClick={() => handleNavigate(experience._id)}
+                  >
+                    {/*  Fixed Image Height */}
+                    <div className="relative w-full h-[220px]">
                       <Image
                         src={experience.coverImage}
                         alt={experience.title}
-                        layout="fill"
-                        className="object-cover w-full h-full"
+                        fill
+                        className="object-cover object-center"
                         loading="lazy"
-                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                        sizes="100vw"
                       />
                     </div>
 
-
-                    {/* Content */}
+                    {/* 👇 Fixed Content Height Section */}
                     <div className="p-4 flex flex-col flex-1">
                       <h3 className="text-lg font-bold text-orange-500 mb-2">
-                        {experience.title}
+                        {experience?.title}
                       </h3>
-                      <p className="text-sm text-gray-600 mb-4 line-clamp-3 flex-1">
-                        {experience.description}
+
+                      {/* 👇 Clamp Description */}
+                      <p className="text-sm text-gray-600 mb-4 line-clamp-1">
+                        {experience?.description}
                       </p>
 
-                      {/* Prices */}
+                      {/* 👇 Prices Section */}
                       <div className="flex flex-wrap gap-2 items-center text-sm mb-4">
                         <span className="bg-orange-500 text-white text-xs font-medium px-2 py-0.5 rounded">
-                          {experience.discount || 0}% OFF
+                          {experience?.discount || 0}% OFF
                         </span>
                         <span className="line-through text-gray-400">
                           {experience?.original_price?.amount}
@@ -114,24 +116,22 @@ const handleNavigate=(id:string)=>{
                         <span className="text-orange-600 font-semibold text-base">
                           {experience?.discount_price?.amount}
                         </span>
-                        <span className="text-gray-500 text-sm">/ Person + VAT</span>
+                        <span className="text-gray-500 text-xs">/ Person + VAT</span>
                       </div>
 
-                      {/* CTAs */}
-                      <div className="flex gap-2 mt-auto w-full">
-                        {/* Book Now */}
-                        <Link href={`/bookNow/${experience._id}`} className="flex-1">
-                          <span className="block w-full text-center bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 rounded-lg transition duration-200">
+                      {/* 👇 Buttons */}
+                      <div className="flex gap-2 w-full mt-auto">
+                        <Link href={`/bookNow/${experience?._id}`} className="flex-1">
+                          <span className="block w-full text-center bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 rounded-lg transition">
                             {t("bookNow")}
                           </span>
                         </Link>
 
-                        {/* WhatsApp */}
                         <a
-                          href="https://wa.me/971000000000" // replace with your business number
+                          href="https://wa.me/971000000000"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="flex-1 block text-center bg-green-500 hover:bg-green-600 text-white font-semibold py-2 rounded-lg transition duration-200"
+                          className="flex-1 text-center bg-green-500 hover:bg-green-600 text-white font-semibold py-2 rounded-lg transition"
                         >
                           {t("whatsapp")}
                         </a>
@@ -142,11 +142,8 @@ const handleNavigate=(id:string)=>{
               ))}
             </Swiper>
 
-            {/* Custom Arrows */}
-            <button
-              className="swiper-button-prev-custom absolute left-0 top-1/2 z-10 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 transition"
-              aria-label="Previous slide"
-            >
+            {/* Navigation Arrows */}
+            <button className="swiper-button-prev-custom absolute left-0 top-1/2 z-10 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 transition">
               <svg
                 className="w-5 h-5 text-gray-600"
                 fill="none"
@@ -156,10 +153,8 @@ const handleNavigate=(id:string)=>{
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
             </button>
-            <button
-              className="swiper-button-next-custom absolute right-0 top-1/2 z-10 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 transition"
-              aria-label="Next slide"
-            >
+
+            <button className="swiper-button-next-custom absolute right-0 top-1/2 z-10 -translate-y-1/2 w-10 h-10 md:w-12 md:h-12 bg-white rounded-full shadow-lg flex items-center justify-center hover:bg-gray-50 transition">
               <svg
                 className="w-5 h-5 text-gray-600"
                 fill="none"
