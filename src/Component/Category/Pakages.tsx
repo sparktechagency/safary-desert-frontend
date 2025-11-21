@@ -76,7 +76,7 @@ const handleNavigate=(id:string)=>{
               <div
                 key={tour.id}
                 onClick={()=>handleNavigate(tour?._id)}
-                className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden"
+                className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden hover:cursor-pointer"
               >
                 <div className="flex flex-col md:flex-row">
                   {/* Image Section */}

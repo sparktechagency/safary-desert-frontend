@@ -80,7 +80,7 @@ const handleNavigate=(id:string)=>{
             >
               {packages?.result.map((experience) => (
                 <SwiperSlide key={experience._id}>
-                  <div className="rounded-2xl h-[350px] shadow-md flex flex-col overflow-hidden bg-white transition-transform hover:scale-[1.01] duration-300" onClick={()=>handleNavigate(experience?._id)}>
+                  <div className="rounded-2xl h-[350px] shadow-md flex flex-col overflow-hidden bg-white transition-transform hover:scale-[1.01] duration-300 hover:cursor-pointer" onClick={()=>handleNavigate(experience?._id)}>
                     {/* Image */}
                     <div className="relative h-[350px] w-full">
                       <Image
