@@ -62,7 +62,7 @@ export default function PersonalInfoForm() {
   };
 
   const onPrevious = () => {
-    console.log("Previous step");
+   router.back()
   };
 
   return (

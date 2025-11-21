@@ -24,10 +24,7 @@ const faq = await getAllFaq();
   // const t = await getTranslations("home");
   return (
     <div>
-      <Banner  
-        // title={t("title")}
-        // subtitle={t("subtitle")}
-        />
+      <Banner/>
       <AwardsSection/>
       <ExperiencesSection packages={packages}/>
       <DesertSafariActivities/>
