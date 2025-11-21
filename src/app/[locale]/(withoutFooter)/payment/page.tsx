@@ -14,6 +14,9 @@ export default function DesertBookingForm() {
   const [readonlyData, setReadonlyData] = useState<any>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 const router = useRouter()
+  const onPrevious = () => {
+   router.back()
+  };
   // show redux data
   useEffect(() => {
     if (bookingState) setReadonlyData(bookingState);
@@ -117,8 +120,9 @@ const router = useRouter()
 
       {/* Actions */}
       <div className="flex gap-4 pt-6">
-        <Link href="/bookNow" className="flex-1">
+        <Link href="" className="flex-1">
           <button
+          onClick={onPrevious}
             type="button"
             className="w-full py-3 bg-blue-500 text-white rounded font-medium hover:bg-blue-600 transition-colors"
           >
