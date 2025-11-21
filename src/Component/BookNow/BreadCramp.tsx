@@ -10,7 +10,7 @@ import {
 
 const Breadcrumbs = ({ data }: any) => {
   return (
-    <div className="w-full">
+    <div className="max-w-7xl">
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6 px-4 py-6 bg-white shadow-md rounded-lg">
         {/* Duration */}
         <div className="flex items-start sm:items-center gap-3">

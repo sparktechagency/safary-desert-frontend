@@ -80,7 +80,7 @@ export default function HeroSection({setIsModalVisible,isModalVisible,setSelecte
              <select
         value={selectedActivity}
         onChange={(e) => setSelectedActivity(e.target.value)}
-        className="w-full appearance-none bg-transparent text-gray-600 focus:outline-none px-3"
+        className="w-full appearance-none bg-transparent text-gray-600 focus:outline-none px-3 hover:cursor-pointer"
       >
         <option value="">Select Activity</option>
         {Object.values(Activity).map((activity) => (
@@ -89,14 +89,14 @@ export default function HeroSection({setIsModalVisible,isModalVisible,setSelecte
           </option>
         ))}
       </select>
-                  <ChevronDown className="absolute right-0 top-1/2 h-4 w-4 -translate-y-1/2 text-gray-400" />
+                  <ChevronDown className="absolute right-0 top-1/2 h-4 w-4 -translate-y-1/2 " />
                 </div>
               </div>
             </div>
 
             {/* Date Selection */}
             <div className="flex flex-1 items-center gap-3 border-b border-gray-200 p-4 md:border-b-0 md:border-r">
-              <Calendar className="h-6 w-6 text-orange-500" />
+              <Calendar className="h-6 w-6 text-orange-500 " />
                 <label className="block text-sm font-medium text-gray-700 border-gray-400 border-r-1 px-3">Dates</label> 
               <div className="flex-1">
                 <input
@@ -104,7 +104,7 @@ export default function HeroSection({setIsModalVisible,isModalVisible,setSelecte
                   value={selectedDate}
                   onChange={(e) => setSelectedDate(e.target.value)}
                   placeholder="DD-MM-YYYY"
-                  className="w-full bg-transparent text-gray-600 focus:outline-none"
+                  className="w-full bg-transparent text-gray-600 focus:outline-none hover:cursor-pointer"
                 />
               </div>
             </div>
@@ -117,7 +117,7 @@ export default function HeroSection({setIsModalVisible,isModalVisible,setSelecte
                 <div className="relative">
                   <button
                     onClick={showModal}
-                    className="w-full text-gray-600 focus:outline-none"
+                    className="w-full text-gray-600 focus:outline-none hover:cursor-pointer"
                   >
                     Select Guests
                   </button>
@@ -128,7 +128,7 @@ export default function HeroSection({setIsModalVisible,isModalVisible,setSelecte
 
             {/* Search Button */}
             <div className="flex items-center justify-center p-2">
-              <button    onClick={handleSearch} className="h-12 w-full rounded-md bg-orange-500 px-8 text-white hover:bg-orange-600 md:w-auto">
+              <button    onClick={handleSearch} className="h-12 w-full rounded-md bg-orange-500 px-8 text-white hover:bg-orange-600 md:w-auto hover:cursor-pointer">
                 <Search className="h-5 w-5" />
               </button>
             </div>

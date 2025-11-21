@@ -8,6 +8,7 @@ import Image from "next/image";
 
 import Link from "next/link";
 import HeroSection from "./Hero";
+import { useRouter } from "next/navigation";
 
 export default function Packages({ packages, setFilters }: any) {
   const [selectedActivity, setSelectedActivity] = useState("");
@@ -45,6 +46,14 @@ export default function Packages({ packages, setFilters }: any) {
       limit,
     });
   };
+
+const router = useRouter()
+
+const handleNavigate=(id:string)=>{
+  router.push(`/bookNow/${id}`)
+}
+
+
   return (
     <div>
       <HeroSection
@@ -66,6 +75,7 @@ export default function Packages({ packages, setFilters }: any) {
             {currentItems?.map((tour: any) => (
               <div
                 key={tour.id}
+                onClick={()=>handleNavigate(tour?._id)}
                 className="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden"
               >
                 <div className="flex flex-col md:flex-row">

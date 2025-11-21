@@ -10,6 +10,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Head from "next/head";
 import { useTranslations } from "next-intl";
+import { useRouter } from "next/navigation";
 
 type ExperiencesSectionProps = {
   packages: {
@@ -28,7 +29,11 @@ type ExperiencesSectionProps = {
 export default function ExperiencesSection({ packages }: ExperiencesSectionProps) {
   const t = useTranslations("buttons");
   const title = useTranslations("home");
+const router = useRouter()
 
+const handleNavigate=(id:string)=>{
+  router.push(`/bookNow/${id}`)
+}
   return (
     <>
       {/* SEO Head Tag (only 1, dynamic generation for all is not optimal) */}
@@ -75,9 +80,9 @@ export default function ExperiencesSection({ packages }: ExperiencesSectionProps
             >
               {packages?.result.map((experience) => (
                 <SwiperSlide key={experience._id}>
-                  <div className="rounded-2xl shadow-md h-full flex flex-col overflow-hidden bg-white transition-transform hover:scale-[1.01] duration-300">
+                  <div className="rounded-2xl h-[350px] shadow-md flex flex-col overflow-hidden bg-white transition-transform hover:scale-[1.01] duration-300" onClick={()=>handleNavigate(experience?._id)}>
                     {/* Image */}
-                    <div className="relative h-56 md:h-64 lg:h-72 w-full">
+                    <div className="relative h-[350px] w-full">
                       <Image
                         src={experience.coverImage}
                         alt={experience.title}
@@ -87,6 +92,7 @@ export default function ExperiencesSection({ packages }: ExperiencesSectionProps
                         sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       />
                     </div>
+
 
                     {/* Content */}
                     <div className="p-4 flex flex-col flex-1">
