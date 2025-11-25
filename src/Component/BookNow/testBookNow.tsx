@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useMemo, useRef } from "react";
@@ -13,7 +14,7 @@ type Availability = { start: string; end: string };
 type IncomingTourOption = {
   id?: string;
   name: string;
-  amount: { amount: number }; 
+  amount: number;
   currency?: string;
   quantity?: number;
 };
@@ -58,9 +59,6 @@ type FormValues = {
 
 // ---------- Helpers ----------
 const formatPrice = (amount: number, currencyCode: string) => {
-  if (isNaN(amount) || amount === 0) {
-    return `${currencyCode || "AED"} 0.00`;
-  }
   try {
     return new Intl.NumberFormat(undefined, {
       style: "currency",
@@ -76,35 +74,34 @@ const formatPrice = (amount: number, currencyCode: string) => {
 export default function Book({ data }: BookProps) {
   const dispatch = useAppDispatch();
   const router = useRouter();
-
-  const basePrice = Number(data?.base_price ?? 2500);  // Ensure a valid number
+console.log("data---->",data?.activityIncluded);
+  const basePrice = Number(data?.base_price ?? 2500);
   const currency = data?.currency ?? "AED";
   const tourOptionsData = data?.activityIncluded ?? [];
-tourOptionsData.forEach((t) => console.log("t --->", t));
-  // Default form values, ensuring amounts are numbers
-  const { control, handleSubmit, watch, setValue, getValues } = useForm<FormValues>({
-    mode: "onChange",
-    defaultValues: {
-      date: "2025-07-04",
-      adults: 1,
-      children: 0,
-      basePrice,
-      currency,
-      
-      activityIncluded: tourOptionsData.map((t, idx) => ({
-        id: String(t.id ?? idx),
-        name: t.name,
-        amount: Number(t?.amount?.amount ?? 0),  // Default to 0 if amount is missing
-        currency: t.currency ?? currency,
-        selected: false,
-        quantity: Math.max(1, Number(t.quantity ?? 1)),
-      })),
-      transfer_option: "sharing",
-    },
-  });
+
+  const { control, handleSubmit, watch, setValue, getValues } =
+    useForm<FormValues>({
+      mode: "onChange",
+      defaultValues: {
+        date: "2025-07-04",
+        adults: 1,
+        children: 0,
+        basePrice,
+        currency,
+        activityIncluded: tourOptionsData.map((t, idx) => ({
+          id: String(t.id ?? idx),
+          name: t.name,
+          amount: Number(t.amount ?? 0),
+          currency: t.currency ?? currency,
+          selected: false,
+          quantity: Math.max(1, Number(t.quantity ?? 1)),
+        })),
+         transfer_option: "sharing",
+      },
+    });
 
   const { fields, update } = useFieldArray({ control, name: "activityIncluded" });
-console.log("fields------->",fields);
+
   // Watchers
   const adults = watch("adults");
   const children = watch("children");
@@ -123,7 +120,7 @@ console.log("fields------->",fields);
 
   // Totals
   const tourTotal = useMemo(
-    () => selectedOptions.reduce((sum, o) => sum + Number(o.amount || 0), 0),
+    () => selectedOptions.reduce((sum, o) => sum + Number(o?.amount || 0), 0),
     [selectedOptions]
   );
 
@@ -188,12 +185,14 @@ console.log("fields------->",fields);
 
   // ---------- Submit ----------
   const onSubmit = (values: FormValues) => {
+    console.log("value",values);
     const selectedOnly = values.activityIncluded
       .filter((o) => o.selected)
       .map(({ id, name, currency, quantity }) => ({
-        id: String(id),
+         id: String(id),
         name,
-        amount: amountAfterDiscount,
+        // ✅ send discounted amount
+        amount: Number(amountAfterDiscount || 0),
         currency: currency || values.currency,
         quantity: Math.max(1, Number(quantity ?? 1)),
         selected: true as const,
@@ -210,7 +209,9 @@ console.log("fields------->",fields);
     const discount_amount = (total_before_discount * discount_percent) / 100;
 
     const grand_total =
-      amountAfterDiscount > 0 ? amountAfterDiscount : Math.max(0, total_before_discount - discount_amount);
+      Number(amountAfterDiscount) > 0
+        ? amountAfterDiscount
+        : Math.max(0, total_before_discount - discount_amount);
 
     dispatch(
       setBooking({
@@ -228,8 +229,8 @@ console.log("fields------->",fields);
         adults: values.adults,
         children: values.children,
         currency: values.currency,
-        activityIncluded: selectedOnly,
-        transfer_option: values.transfer_option,
+        activityIncluded:selectedOnly,
+transfer_option:values.transfer_option,
         pricing: {
           tour_price,
           additional_price,
@@ -246,15 +247,26 @@ console.log("fields------->",fields);
 
   // ---------- JSX ----------
   return (
-    <form className="max-w-7xl mx-auto p-4 bg-white" onSubmit={handleSubmit(onSubmit)} noValidate>
+    <form
+      className="max-w-7xl mx-auto p-4 bg-white"
+      onSubmit={handleSubmit(onSubmit)}
+      noValidate
+    >
       {/* Header */}
       <div className="bg-pink-50 p-4 rounded-lg mb-6">
-        <h1 className="text-xl font-semibold text-gray-800 mb-4">Book VIP Desert Safari Dubai</h1>
+        <h1 className="text-xl font-semibold text-gray-800 mb-4">
+          Book VIP Desert Safari Dubai
+        </h1>
 
         <div className="grid grid-cols-1 md:grid-cols-5 gap-3 items-end">
           {/* Date */}
           <div>
-            <label htmlFor="booking-date" className="block text-sm text-gray-600 mb-1">Select Your Date</label>
+            <label
+              htmlFor="booking-date"
+              className="block text-sm text-gray-600 mb-1"
+            >
+              Select Your Date
+            </label>
             <div className="relative">
               <Controller
                 control={control}
@@ -265,7 +277,10 @@ console.log("fields------->",fields);
                     type="date"
                     id="booking-date"
                     {...field}
-                    ref={(el) => { field.ref(el); dateRef.current = el; }}
+                    ref={(el) => {
+                      field.ref(el);
+                      dateRef.current = el;
+                    }}
                     className="w-full p-2 border border-gray-300 rounded text-sm"
                     aria-invalid={!field.value ? "true" : "false"}
                   />
@@ -283,7 +298,12 @@ console.log("fields------->",fields);
           </div>
           {/* Transfer Option */}
           <div>
-            <label htmlFor="transfer-option" className="block text-sm text-gray-600 mb-1">Transfer Option</label>
+            <label
+              htmlFor="transfer-option"
+              className="block text-sm text-gray-600 mb-1"
+            >
+              Transfer Option
+            </label>
             <Controller
               control={control}
               name="transfer_option"
@@ -305,7 +325,9 @@ console.log("fields------->",fields);
 
           {/* Adults */}
           <div>
-            <label className="block text-sm text-gray-600 mb-1">No of Adults</label>
+            <label className="block text-sm text-gray-600 mb-1">
+              No of Adults
+            </label>
             <div className="flex items-center border border-gray-300 rounded">
               <button
                 type="button"
@@ -327,7 +349,9 @@ console.log("fields------->",fields);
 
           {/* Children */}
           <div>
-            <label className="block text-sm text-gray-600 mb-1">No of Child (1–11 yrs)</label>
+            <label className="block text-sm text-gray-600 mb-1">
+              No of Child (1–11 yrs)
+            </label>
             <div className="flex items-center border border-gray-300 rounded">
               <button
                 type="button"
@@ -346,12 +370,11 @@ console.log("fields------->",fields);
               </button>
             </div>
           </div>
-
           {/* Base Price */}
           <div className="ml-5">
             <p className="block text-sm text-gray-600 mb-1">Base Price</p>
             <p className="text-xl font-bold text-orange-500 ">
-              AED {formatPrice(data?.discount_price?.amount ?? basePrice, currency)}
+              AED {data?.discount_price?.amount}
             </p>
           </div>
         </div>
@@ -359,7 +382,9 @@ console.log("fields------->",fields);
 
       {/* Tour Options */}
       <div className="mb-6">
-        <h2 className="text-lg font-semibold text-orange-500 mb-4">Customize Tour Options</h2>
+        <h2 className="text-lg font-semibold text-orange-500 mb-4">
+          Customize Tour Options
+        </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
           <div className="font-semibold">Tour Option</div>
@@ -367,6 +392,77 @@ console.log("fields------->",fields);
           <div className="font-semibold text-right">Line Total</div>
         </div>
 
+        {/* <div className="space-y-3 mt-3">
+          {fields.map((field, idx) => {
+            const opt = watchedOptions[idx];
+            const qty = Math.max(1, Number(opt?.quantity ?? 1));
+            const perLineTotal = qty * (opt?.amount ?? 0);
+            const disabled = !opt?.selected;
+
+            return (
+              <div
+                key={field.id}
+                className={`grid grid-cols-1 md:grid-cols-3 gap-4 items-center py-2 border-b border-gray-100 ${
+                  disabled ? "opacity-80" : ""
+                }`}
+              >
+                <div className="flex items-center">
+                  <input
+                    type="checkbox"
+                    checked={!!opt?.selected}
+                    onChange={() => toggleOption(idx)}
+                    className="mr-2"
+                  />
+                  <div>
+                    <div className="font-medium">{opt?.name}</div>
+                    <div className="text-orange-500 text-xs">Package Details</div>
+                    <div className="text-xs text-gray-500">
+                      Price per {opt?.name}:{" "}
+                      {formatPrice(opt?.amount ?? 0, opt?.currency ?? formCurrency)}
+                    </div>
+                  </div>
+                </div>
+
+                <div className="text-center">
+                  <div
+                    className={`flex items-center justify-center border border-gray-300 rounded w-28 mx-auto ${
+                      disabled ? "bg-gray-50" : ""
+                    }`}
+                  >
+                    <button
+                      type="button"
+                      onClick={() => changeQty(idx, -1)}
+                      className={`p-1 hover:bg-gray-100 ${
+                        disabled ? "pointer-events-none opacity-50" : ""
+                      }`}
+                    >
+                      <FaMinus className="text-xs" />
+                    </button>
+                    <span className="px-2 py-1 text-sm min-w-6 text-center">{qty}</span>
+                    <button
+                      type="button"
+                      onClick={() => changeQty(idx, +1)}
+                      className={`p-1 hover:bg-gray-100 ${
+                        disabled ? "pointer-events-none opacity-50" : ""
+                      }`}
+                    >
+                      <FaPlus className="text-xs" />
+                    </button>
+                  </div>
+                </div>
+
+                <div className="text-right font-semibold">
+                  {formatPrice(perLineTotal, opt?.currency ?? formCurrency)}
+                  {!opt?.selected && (
+                    <span className="block text-xs font-normal text-gray-500">
+                      not included in totals
+                    </span>
+                  )}
+                </div>
+              </div>
+            );
+          })}
+        </div> */}
         <div className="space-y-3 mt-3">
           {fields.map((field, idx) => {
             const opt = watchedOptions[idx];
@@ -376,7 +472,10 @@ console.log("fields------->",fields);
             const displayName = opt?.name ? opt.name.replace(/_/g, " ") : "";
 
             return (
-              <div key={field.id} className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center py-2 border-b border-gray-100">
+              <div
+                key={field.id}
+                className="grid grid-cols-1 md:grid-cols-3 gap-4 items-center py-2 border-b border-gray-100"
+              >
                 <div className="flex items-center">
                   <input
                     type="checkbox"
@@ -386,7 +485,9 @@ console.log("fields------->",fields);
                   />
                   <div>
                     <div className="font-medium">{displayName}</div>
-                    <div className="text-orange-500 text-xs">Package Details</div>
+                    <div className="text-orange-500 text-xs">
+                      Package Details
+                    </div>
                   </div>
                 </div>
 
@@ -399,7 +500,9 @@ console.log("fields------->",fields);
                     >
                       <FaMinus className="text-xs" />
                     </button>
-                    <span className="px-2 py-1 text-sm min-w-6 text-center">{qty}</span>
+                    <span className="px-2 py-1 text-sm min-w-6 text-center">
+                      {qty}
+                    </span>
                     <button
                       type="button"
                       onClick={() => changeQty(idx, +1)}
@@ -409,85 +512,96 @@ console.log("fields------->",fields);
                     </button>
                   </div>
                   <div className="text-xs text-gray-500 mt-3">
-                    Price per {displayName}: {formatPrice(opt?.amount ?? 0, formCurrency)}
+                    Price per {displayName}:{" "}
+                    {formatPrice(
+                      opt?.amount ?? 0,
+                      opt?.currency ?? formCurrency
+                    )}
                   </div>
                 </div>
 
                 <div className="text-right font-semibold">
-                  {formatPrice(perLineTotal, formCurrency)}
+                  {formatPrice(perLineTotal, opt?.currency ?? formCurrency)}
                   {!opt?.selected && (
-                    <span className="block text-xs font-normal text-gray-500">not included in totals</span>
+                    <span className="block text-xs font-normal text-gray-500">
+                      not included in totals
+                    </span>
                   )}
                 </div>
               </div>
             );
           })}
         </div>
-      </div>
 
-      {/* Totals */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6 py-4 bg-gray-50 rounded">
-        <div className="text-center">
-          <div className="text-sm text-gray-600">Tour Total</div>
-          <div className="text-xl font-bold text-orange-500">
-            {formatPrice(tourTotal, formCurrency)}
+        {/* Totals */}
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mt-6 py-4 bg-gray-50 rounded">
+          <div className="text-center">
+            <div className="text-sm text-gray-600">Tour Total</div>
+            <div className="text-xl font-bold text-orange-500">
+              {formatPrice(tourTotal, formCurrency)}
+            </div>
+          </div>
+
+          <div className="text-center">
+            <div className="text-sm text-gray-600">Additional Price</div>
+            <div className="text-xl font-bold text-orange-500">
+              {formatPrice(additionTotal, formCurrency)}
+            </div>
+          </div>
+
+          <div className="text-center">
+            <div className="text-sm text-gray-600">Total</div>
+            <div className="text-xl font-bold text-orange-500">
+              {formatPrice(totalBeforeDiscount, formCurrency)}
+            </div>
+          </div>
+
+          <div className="text-center">
+            <div className="text-sm text-gray-600">Grand Total</div>
+            <div className="text-xl font-bold text-orange-500">
+              {formatPrice(
+                !amountAfterDiscount || amountAfterDiscount === 0
+                  ? data?.discount_price?.amount ?? 0
+                  : amountAfterDiscount,
+                formCurrency
+              )}
+            </div>
           </div>
         </div>
 
-        <div className="text-center">
-          <div className="text-sm text-gray-600">Additional Price</div>
-          <div className="text-xl font-bold text-orange-500">
-            {formatPrice(additionTotal, formCurrency)}
-          </div>
+        {/* Buttons */}
+        <div className="flex justify-center items-center flex-col sm:flex-row gap-3 mt-6">
+          <button
+            type="button"
+            onClick={() => {
+              setValue("date", "2025-07-04");
+              setValue("adults", 1);
+              setValue("children", 0);
+              watchedOptions.forEach((_, i) =>
+                update(i, {
+                  ...getValues(`activityIncluded.${i}`),
+                  selected: false,
+                  quantity: 1,
+                })
+              );
+            }}
+            className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+          >
+            Cancel
+          </button>
+
+          <button
+            type="submit"
+            disabled={!hasSelectedOption}
+            className={`px-6 py-2 rounded text-white transition-colors ${
+              hasSelectedOption
+                ? "bg-orange-500 hover:bg-orange-600"
+                : "bg-gray-300 cursor-not-allowed"
+            }`}
+          >
+            Book Now
+          </button>
         </div>
-
-        <div className="text-center">
-          <div className="text-sm text-gray-600">Total</div>
-          <div className="text-xl font-bold text-orange-500">
-            {formatPrice(totalBeforeDiscount, formCurrency)}
-          </div>
-        </div>
-
-        <div className="text-center">
-          <div className="text-sm text-gray-600">Grand Total</div>
-          <div className="text-xl font-bold text-orange-500">
-            {formatPrice(amountAfterDiscount, formCurrency)}
-          </div>
-        </div>
-      </div>
-
-      {/* Buttons */}
-      <div className="flex justify-center items-center flex-col sm:flex-row gap-3 mt-6">
-        <button
-          type="button"
-          onClick={() => {
-            setValue("date", "2025-07-04");
-            setValue("adults", 1);
-            setValue("children", 0);
-            watchedOptions.forEach((_, i) =>
-              update(i, {
-                ...getValues(`activityIncluded.${i}`),
-                selected: false,
-                quantity: 1,
-              })
-            );
-          }}
-          className="px-6 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
-        >
-          Cancel
-        </button>
-
-        <button
-          type="submit"
-          disabled={!hasSelectedOption}
-          className={`px-6 py-2 rounded text-white transition-colors ${
-            hasSelectedOption
-              ? "bg-orange-500 hover:bg-orange-600"
-              : "bg-gray-300 cursor-not-allowed"
-          }`}
-        >
-          Book Now
-        </button>
       </div>
     </form>
   );

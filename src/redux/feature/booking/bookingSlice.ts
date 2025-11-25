@@ -8,11 +8,11 @@ export interface Availability {
 }
 
 export interface SelectedTourOption {
-  id: string | number;
+  id: string;
   name: string;
   amount: number;
   currency: string;
-  quantity: number; // >= 1
+  quantity: number;
   selected: true;
 }
 
@@ -43,7 +43,7 @@ export interface SetBookingPayload {
   adults: number;
   children: number;
   currency: string;
-  tour_options: SelectedTourOption[];
+  activityIncluded: SelectedTourOption[];
 transfer_option:string;
   // totals
   pricing: Pricing;
@@ -72,7 +72,7 @@ const initialState: BookingState = {
   children: 0,
   transfer_option:"",
   currency: "AED",
-  tour_options: [],
+  activityIncluded: [],
 pricing: { 
   tour_price: 0, 
   additional_price: 0, 
