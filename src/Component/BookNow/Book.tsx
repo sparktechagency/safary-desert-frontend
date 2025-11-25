@@ -80,7 +80,7 @@ export default function Book({ data }: BookProps) {
   const basePrice = Number(data?.base_price ?? 2500);  // Ensure a valid number
   const currency = data?.currency ?? "AED";
   const tourOptionsData = data?.activityIncluded ?? [];
-tourOptionsData.forEach((t) => console.log("t --->", t));
+// tourOptionsData.forEach((t) => console.log("t --->", t));
   // Default form values, ensuring amounts are numbers
   const { control, handleSubmit, watch, setValue, getValues } = useForm<FormValues>({
     mode: "onChange",
