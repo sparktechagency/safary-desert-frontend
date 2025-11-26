@@ -84,7 +84,7 @@ export default function Book({ data }: BookProps) {
   // Default form values, ensuring amounts are numbers
   const { control, handleSubmit, watch, setValue, getValues } = useForm<FormValues>({
     mode: "onChange",
-    defaultValues: {
+    defaultValues:{
       date: "2025-07-04",
       adults: 1,
       children: 0,

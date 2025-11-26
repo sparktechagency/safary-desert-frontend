@@ -12,12 +12,17 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import { useTranslations } from "next-intl";
 import React from "react";
+import { useRouter } from "next/navigation";
 
 
 
 export default function ExclusiveArrangements({events}:any) {
     const title = useTranslations("home");
-  console.log("events----->",events);
+  // console.log("events----->",events);
+    const router = useRouter();
+    const handleNavigate = (id: string) => {
+      router.push(`/events/${id}`);
+    }; 
   return (
     <section className="w-full py-12 px-4 md:px-8 font-nunito">
       <div className="max-w-7xl mx-auto">
@@ -50,7 +55,7 @@ export default function ExclusiveArrangements({events}:any) {
         >
           {events?.result?.map((arrangement:any, index:number) => (
             <SwiperSlide key={index}>
-              <div className="relative font-nunito overflow-hidden rounded-2xl border-2 border-orange-400 group cursor-pointer transition-transform mb-8">
+              <div className="relative font-nunito overflow-hidden rounded-2xl border-2 border-orange-400 group cursor-pointer transition-transform mb-8" onClick={()=>handleNavigate(arrangement?._id)}>
                 {/* Background Image and Gradient */}
                 <div className="relative h-80 md:h-96">
                   <Image

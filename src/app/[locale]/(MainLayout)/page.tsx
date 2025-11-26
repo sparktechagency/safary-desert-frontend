@@ -6,7 +6,7 @@ import ExclusiveArrangements from "@/Component/Landing/Events";
 import ExperiencesSection from "@/Component/Landing/ExpirencesSection";
 import FAQSection from "@/Component/Landing/FAQ";
 import WhyChoose from "@/Component/Landing/WhyChoose";
-import { getAllEvents, getAllFaq, getAllPackage } from "@/utils/api/api";
+import { getAllActivities, getAllEvents, getAllFaq, getAllPackage } from "@/utils/api/api";
 
 
 import React from "react";
@@ -18,6 +18,7 @@ const packages = await getAllPackage();
 console.log("Packages:-----------><><><><><><------>", packages);
 
 const events = await getAllEvents();
+const activities = await getAllActivities();
 
 
 const faq = await getAllFaq();
@@ -27,7 +28,7 @@ const faq = await getAllFaq();
       <Banner/>
       <AwardsSection/>
       <ExperiencesSection packages={packages}/>
-      <DesertSafariActivities/>
+      <DesertSafariActivities activities={activities}/>
       <ExclusiveArrangements events={events}/>
       <WhyChoose/>
       <FAQSection faq={faq}/>

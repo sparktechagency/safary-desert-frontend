@@ -84,10 +84,69 @@ export const getSingleBlog = async (id:any) => {
     return { meta: {}, result: [] }; // Return empty meta and result in case of error
   }
 };
+export const getSingleActivity = async (id:any) => {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/activity/single-activity/${id}`, {
+      next: { revalidate: 3600 },
+    });
+
+    if (!res.ok) {
+      throw new Error('Failed to fetch events');
+    }
+
+    const data = await res.json();
+    
+    // Return both the meta and result data
+    return data
+  } catch (error) {
+    console.error("Error fetching events:", error);
+    return { meta: {}, result: [] }; // Return empty meta and result in case of error
+  }
+};
+export const getSingleEvents = async (id:any) => {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/event/single-event/${id}`, {
+      next: { revalidate: 3600 },
+    });
+
+    if (!res.ok) {
+      throw new Error('Failed to fetch events');
+    }
+
+    const data = await res.json();
+    
+    // Return both the meta and result data
+    return data
+  } catch (error) {
+    console.error("Error fetching events:", error);
+    return { meta: {}, result: [] }; // Return empty meta and result in case of error
+  }
+};
 
 export const getAllEvents = async () => {
   try {
     const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/event/allEvents`, {
+      next: { revalidate: 3600 },
+    });
+
+    if (!res.ok) {
+      throw new Error('Failed to fetch events');
+    }
+
+    const data = await res.json();
+    // Return both the meta and result data
+    return {
+      meta: data?.data?.meta || {},
+      result: data?.data?.result || [],
+    };
+  } catch (error) {
+    console.error("Error fetching events:", error);
+    return { meta: {}, result: [] }; // Return empty meta and result in case of error
+  }
+};
+export const getAllActivities = async () => {
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_SERVER_URL}/activity/allActivities`, {
       next: { revalidate: 3600 },
     });
 
